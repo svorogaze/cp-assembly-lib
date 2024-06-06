@@ -10,7 +10,7 @@ asm(R"(
     mov $2, %rbx
     test $1, %rcx
     jz FOUND
-    mov $3, %rbx
+    inc %rbx
     CYCLE:
     xor %rdx, %rdx
     mov %rcx, %rax
@@ -21,9 +21,12 @@ asm(R"(
     je FOUND
     add $2, %rbx
     jmp CYCLE
+    FOUND:
+    cmp $2, %rcx
+    jne GET
     NOTFOUND:
     xor %rbx, %rbx
-    FOUND:
+    GET:
     mov %rbx, %rax
     pop %rbx
     ret
